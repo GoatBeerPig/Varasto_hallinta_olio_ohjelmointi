@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class Varasto {
    public static void main(String[] args) throws Exception {
       // variables
-             final String url = "jdbc:mysql://192.168.8.144:3306/testivarasto";
+             final String url = "jdbc:mysql://192.168.8.145:3306/testivarasto";
              final String user = "remuser";
              final String password = "passu123"; 
              
@@ -37,7 +37,7 @@ public class Varasto {
       if (rs2 != null)  
           while (rs2.next()) 
       {  
-          System.out.println("Tuotteen Id on: " + rs2.getString(1));  
+          System.out.println("Tuotteen Id on: " + rs2.getInt(1));  
           System.out.println("Tuotteen nimi on: " + rs2.getString(2));  
       }  
       rs2.close();

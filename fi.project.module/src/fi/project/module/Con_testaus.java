@@ -12,7 +12,7 @@ public class Con_testaus {
     
       // declare variables
       // place your own values
-      final String url = "jdbc:mysql://192.168.8.144:3306/testivarasto";
+      final String url = "jdbc:mysql://192.168.8.145:3306/testivarasto";
       final String user = "remuser";
       final String password = "passu123";
 
