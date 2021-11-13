@@ -9,7 +9,7 @@ public class Database {
 public static Connection dbConn;
 public static Connection getCnxn() {
 
-final String dbUrl = "jdbc:mysql://192.168.8.150:3306/testivarasto";
+final String dbUrl = "jdbc:mysql://192.168.8.151:3306/testivarasto";
 final String dbUsername = "remuser";
 final String dbPassword = "passu123";
 

@@ -151,34 +151,49 @@ public class Controller{
     	Connection cnxn = dbConn.getCnxn();
     	
     	PreparedStatement ps;
+    	String valinta = Valinta.getText();
     	
     	try{
     		Integer.parseInt(lkm.getText());
     		Double.parseDouble(hinta.getText());
 
-        	
-        	String query = "update varasto set tuote=? where Id=? ";
-        	ps = cnxn.prepareStatement(query);
-        	ps.setString(1, tuote.getText());
-        	ps.setString(2, Valinta.getText());
-        	ps.executeUpdate();
-        	
-        	String query2 = "update varasto set lukumaara=? where Id=? ";
-        	ps = cnxn.prepareStatement(query2);
-        	ps.setString(1, lkm.getText());
-        	ps.setString(2, Valinta.getText());
-        	ps.executeUpdate();
-        	
-        	String query3 = "update varasto set hinta=? where Id=? ";
-        	ps = cnxn.prepareStatement(query3);
-        	ps.setString(1, hinta.getText());
-        	ps.setString(2, Valinta.getText());
-        	ps.executeUpdate();
+    		String query4 = "SELECT id FROM varasto WHERE id = "+valinta+";";
+
+            // send and execute SQL query in Database software
+        	Statement st = cnxn.createStatement();
+            ResultSet rs = st.executeQuery(query4);
+            
+            if(rs.next()) {
+            	String query = "update varasto set tuote=? where Id=? ";
+            	ps = cnxn.prepareStatement(query);
+            	ps.setString(1, tuote.getText());
+            	ps.setString(2, valinta);
+            	ps.executeUpdate();
+            	
+            	String query2 = "update varasto set lukumaara=? where Id=? ";
+            	ps = cnxn.prepareStatement(query2);
+            	ps.setString(1, lkm.getText());
+            	ps.setString(2, valinta);
+            	ps.executeUpdate();
+            	
+            	String query3 = "update varasto set hinta=? where Id=? ";
+            	ps = cnxn.prepareStatement(query3);
+            	ps.setString(1, hinta.getText());
+            	ps.setString(2, valinta);
+            	ps.executeUpdate();
 
 
-        	
-        	textarea.setText("");
-        	updatelist();
+            	
+            	textarea.setText("");
+            	updatelist();
+            }
+            else {
+            	textarea.setText("Tuotetta "+valinta+" ei ole olemassa.");
+            }
+            
+    		
+
+            
         	}catch (SQLException e) {
             	// TODO Auto-generated catch block
 
@@ -202,6 +217,13 @@ public class Controller{
         	st = cnxn.createStatement();
         	
         	String varaston_valinta = Valinta.getText();
+        	
+        	String query = "SELECT id FROM varasto WHERE id = "+varaston_valinta+";";
+
+            // send and execute SQL query in Database software
+            ResultSet rs = st.executeQuery(query);
+            
+            if(rs.next()) {
 
         	// prepare SQL query
         	String updt = "DELETE FROM varasto WHERE id="+varaston_valinta+";";
@@ -210,14 +232,11 @@ public class Controller{
         	// send and execute SQL query in Database software
         	st.executeUpdate(updt);
         	
-        	//String query = "SELECT MAX(ID) FROM varasto";
-        	//ResultSet rs = st.executeQuery(query);
-        	//rs.next();
-        	//int myMaxId = rs.getInt(1);
-        	//String updt2 = "ALTER TABLE varasto AUTO_INCREMENT ="+myMaxId+";";                           //t‰‰ oli joku mun yritys resetoida auto_increment mut ei se toiminu.
-        	//st.executeUpdate(updt2);
         	
         	updatelist();
+            }else {
+            	textarea.setText("Tuotetta "+varaston_valinta+" ei ole olemassa.");
+            }
         	}catch (SQLException e) {
             	// TODO Auto-generated catch block
 
